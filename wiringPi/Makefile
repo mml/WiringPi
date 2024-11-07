@@ -70,8 +70,12 @@ OBJ	=	$(SRC:.c=.o)
 all:		$(DYNAMIC)
 
 .PHONY:	static
-static:	
-		$Q cat noMoreStatic
+static:	$(STATIC)
+
+(%) : % ;
+
+$(STATIC): $(STATIC)($(OBJ))
+	$(AR) $(ARFLAGS) $@ $?
 
 $(DYNAMIC):	$(OBJ)
 	$Q echo "[Link (Dynamic)]"
